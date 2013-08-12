@@ -113,7 +113,7 @@ module Mongoid
       alias_method :per_page, :limit_value
 
       def num_pages
-        (self.total_entries && @opts[:per_page]) ? self.total_entries/@opts[:per_page] : nil
+        (self.total_entries && @opts[:per_page]) ? (self.total_entries/@opts[:per_page].to_f).ceil : nil
       end
       alias_method :total_pages, :num_pages
 

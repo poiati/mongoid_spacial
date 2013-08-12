@@ -70,4 +70,16 @@ describe Mongoid::Spacial::GeoNearResults do
       near.limit_value.should == 25
     end
   end
+
+  context "with partial pages" do
+    let!(:near) {Bar.geo_near([1,1]).per(15)}
+
+    it "has 4 pages" do
+      near.num_pages.should == 4
+    end
+
+    it "the last page has 5 items" do
+      near.page(4).count.should == 5
+    end
+  end
 end
